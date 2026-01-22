@@ -1,0 +1,17 @@
+/* Enter your custom styles here */
+.MainArea {
+    box-shadow: 0 4px 8px rgba(58, 120, 241, 0.3) !important;
+    background-color: aliceblue !important;
+}
+
+.TitleName {
+    color: rgb(37, 99, 235) !important;
+    /* solid blue */
+}
+
+.shadowVBox {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+    border-radius: 5px !important;
+    padding: 10px !important;
+    background-color: #fff !important;
+}

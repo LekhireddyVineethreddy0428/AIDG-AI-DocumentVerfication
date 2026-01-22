@@ -1,0 +1,69 @@
+<mvc:View controllerName="aidgverification.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:f="sap.f"
+    xmlns:u="sap.ui.unified"
+    xmlns:core="sap.ui.core" 
+    displayBlock="true"
+    xmlns="sap.m">
+    <Page id="page" title="AirDoc Verification and Extraction" titleLevel="H1" showHeader="true" titleAlignment="Center" backgroundDesign="Solid">
+
+        <content>
+            <VBox id="_IDGenVBox1" width="100%" backgroundDesign="Solid">
+                <FlexBox id="_IDGenFlexBox" alignContent="Center" justifyContent="Center" alignItems="Center" width="100%">
+                    <IconTabHeader id="mainTabHeader" mode="Inline" backgroundDesign="Transparent" select="onTabSelect">
+                        <items>
+                            <IconTabFilter id="PanCard" key="5" text="💳 PAN Verification" 
+                                visible="{= ${aiConfigLocal>/AIPANVERIF/IsActive} === true}" />
+                            <IconTabFilter id="Adhaar" key="4" text="👤 Aadhaar Verification" 
+                                visible="{= ${aiConfigLocal>/AIADHARVER/IsActive} === true}"/>
+                            <IconTabFilter id="BankCheque" key="7" text="💵 Bank Cheque Verification" 
+                                visible="{= ${aiConfigLocal>/AICHEQUEVE/IsActive} === true}"/>
+                            <IconTabFilter id="Invoice" key="1" text="🧾 Invoice Data Extraction" 
+                                visible="{= ${aiConfigLocal>/AIINVOICEV/IsActive} === true}" />
+                            <IconTabFilter id="Contract" key="8" text="📝 Contract Data Extraction" 
+                                visible="{= ${aiConfigLocal>/AICONTRACT/IsActive} === true}" />
+                        </items>
+                    </IconTabHeader>
+                </FlexBox>
+            </VBox>
+
+            <VBox id="MainContentSection" backgroundDesign="Translucent" class="sapUi-Std-PaddingS">
+                <Title id="VerificationTitle" text="💳 PAN Verification" titleStyle="H3" class='sapUiSmallMarginTop sapUi-Std-PaddingS' textAlign="Center" />
+                
+                <HBox id="_IDGenHBox1" width="100%" class="sapUiSmallMargin sapUiLargeMarginTop MainArea">
+                    <VBox id="UploadArea" width="50%" class="sapUiMediumMarginEnd sapUiMediumMarginTop coustmBox showdowBox sapUi-Std-PaddingS">
+                        <Title id="_IDGenTitle1" text="1. Upload Document and Preview" titleStyle="H4" class='TitleName'/>
+                        <u:FileUploader id="fileUploader" name="file" width="75%" fileType="png,jpg,jpeg,pdf" change="onFileChange" class="sapUiLargeMarginStart sapUi-Std-PaddingS" placeholder="Choose file" useMultipart="false"/>
+                        
+                        <VBox id="_IDGenVBox2" height="330px" backgroundDesign="Solid">
+                            <ScrollContainer id="_IDGenScrollContainer1" height="330px" width="100%" vertical="true" horizontal="false">
+                                <Image id="Preview" width="100%" visible="false" class="sapUiSmallMarginTop"/>
+                                <core:HTML id="PdfPreviewHtml" visible="false"/>
+                            </ScrollContainer>
+                        </VBox>
+
+                        <Button id="VerificationButton" text="Click to Verify PAN" type="Emphasized" class="sapUiSmallMarginTop" press="onVerifyPress" width="100%"/>
+                    </VBox>
+
+                    <VBox id="ResultsArea" width="50%" class="sapUiMediumMarginTop coustmBox showdowBox sapUi-Std-PaddingS">
+                        <Title id="_IDGenTitle2" text="2. Verification Results" titleStyle="H4" class='TitleName sapUi-Std-PaddingS'/>
+                        <VBox id="chatArea" backgroundDesign="Solid" height="330px" class="sapUiMediumMarginTop sapUi-Std-PaddingS">
+                            <ScrollContainer id="_IDGenScrollContainer" height="330px" width="100%" vertical="true" horizontal="false">
+                                <FormattedText id="resultText" htmlText="Results will appear here after a file is uploaded and verified." class="sapUi-Std-PaddingS sapUiTinyMarginTop" />
+                            </ScrollContainer>
+                        </VBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </content>
+
+        <footer>
+            <Bar id="_IDGenBar1" design="Auto">
+                <contentMiddle>
+                    <Text id="_IDGenText" text="© 2026 Document Verification App"></Text>
+                    <Text id="_IDGenText1" text="Powered By Airdit Software Services"></Text>
+                </contentMiddle>
+            </Bar>
+        </footer>
+    </Page>
+</mvc:View>
