@@ -29,7 +29,7 @@ sap.ui.define([
                     var oTabHeader = that.byId("mainTabHeader");
                     var aItems = oTabHeader.getItems();
                     var sCurrentKey = oTabHeader.getSelectedKey();
-                    
+
                     // Check if current tab is visible
                     var oCurrentTab = aItems.find(i => i.getKey() === sCurrentKey);
                     if (!oCurrentTab || !oCurrentTab.getVisible()) {
@@ -54,7 +54,7 @@ sap.ui.define([
         onTabSelect: function (oEvent) {
             var sKey = oEvent.getParameter("key") || oEvent.getParameter("selectedKey");
             this._updateUIForTab(sKey);
-            
+
             // UI Reset
             this._selectedFile = null;
             this.byId("fileUploader").clear();
@@ -108,39 +108,29 @@ sap.ui.define([
             const formData = new FormData();
             formData.append("file", this._selectedFile, this._selectedFile.name);
             formData.append("app_id", appId);
-
+            formData.append("token", 'DP0xxRLQswtQeEuFUEfcQP9Otcsg7XFzUIhG4pFzuBeUYDmRqd2gTbI4fOYIPeGZ')
             this.getView().setBusy(true);
+
             try {
                 const response = await fetch(this.api, { method: "POST", body: formData });
                 const data = await response.json();
-                
-                let sRawResult = (data.success && typeof data.success === 'object') ? 
-                                 this.renderJsonAsHTML(data.success) : data.success;
-                
-                this.byId("resultText").setHtmlText(this.formatResultToHTML(sRawResult));
+
+                // Get result text
+                let sRawResult = (data.success && typeof data.success === "object")
+                    ? JSON.stringify(data.success, null, 2)
+                    : data.success;
+
+                // Use marked to format markdown
+                let html = marked.parse(sRawResult || "");
+
+                // Set directly (no custom formatter)
+                this.byId("resultText").setHtmlText(html);
+
             } catch (err) {
                 this.byId("resultText").setHtmlText("Verification failed.");
             } finally {
                 this.getView().setBusy(false);
             }
         },
-
-        formatResultToHTML: function (text) {
-            if (!text) return '';
-            let f = text;
-            f = f.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            f = f.replace(/### (.*)/g, '<h3>$1</h3>');
-            f = f.replace(/✅/g, '<span style="color:green">✅</span>');
-            f = f.replace(/\n/g, '<br>');
-            return f;
-        },
-
-        renderJsonAsHTML: function (obj) {
-            let res = "";
-            for (const [k, v] of Object.entries(obj)) {
-                res += `<strong>${k}</strong>: ${v && typeof v === 'object' ? JSON.stringify(v) : v}<br>`;
-            }
-            return res;
-        }
     });
 });
