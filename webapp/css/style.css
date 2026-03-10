@@ -1,17 +1,214 @@
-/* Enter your custom styles here */
-.MainArea {
-    box-shadow: 0 4px 8px rgba(58, 120, 241, 0.3) !important;
-    background-color: aliceblue !important;
+/* ─── Page & Layout ─── */
+.mainPage .sapMPageBgSolid {
+    background-color: #f8f9fb !important;
 }
 
-.TitleName {
-    color: rgb(37, 99, 235) !important;
-    /* solid blue */
+.mainContent {
+    padding: 24px !important;
+    height: 100% !important;
+    box-sizing: border-box !important;
 }
 
-.shadowVBox {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
-    border-radius: 5px !important;
-    padding: 10px !important;
-    background-color: #fff !important;
+.layoutHBox {
+    gap: 24px !important;
+    align-items: stretch !important;
+    height: calc(100vh - 140px) !important; /* fills viewport minus header+footer */
+}
+
+/* ─── Shared Panel ─── */
+.panelBox {
+    background-color: #ffffff !important;
+    border-radius: 12px !important;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06) !important;
+    overflow: hidden !important;
+    flex: 1 !important;
+    width: 50% !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: border-box !important;
+}
+
+/* ─── Upload Panel ─── */
+.uploadPanel {
+    padding: 0 !important;
+}
+
+.previewArea {
+    flex: 1 !important;
+    background-color: #f1f3f8 !important;
+    border: 2px dashed #c5cae0 !important;
+    border-radius: 12px !important;
+    margin: 16px 16px 0 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    overflow: hidden !important;
+    min-height: 0 !important;
+    padding: 2px !important;
+    height:400px !important;
+}
+
+.previewPlaceholder {
+    align-items: center !important;
+    justify-content: center !important;
+    height: 100% !important;
+    gap: 8px !important;
+}
+
+.placeholderIcon {
+    color: #b0b8d4 !important;
+    margin-bottom: 8px !important;
+}
+
+.placeholderTitle {
+    color: #8892b0 !important;
+    font-size: 0.95rem !important;
+    font-weight: 500 !important;
+}
+
+.placeholderSub {
+    color: #aab0c8 !important;
+    font-size: 0.82rem !important;
+    text-align: center !important;
+}
+
+/* ─── Action Bar ─── */
+.actionBar {
+    padding: 12px 16px !important;
+    border-top: 1px solid #eef0f5 !important;
+    background: #fff !important;
+    flex-shrink: 0 !important;
+}
+
+.actionButtons {
+    gap: 10px !important;
+}
+
+/* Browse button — outlined style */
+.uploadButton .sapUiUfdFUButton,
+.uploadButton .sapMBtn {
+    border: 1px solid #d0d5e8 !important;
+    border-radius: 8px !important;
+    color: #3c4a6e !important;
+    background: #fff !important;
+    font-size: 0.875rem !important;
+    padding: 0 16px !important;
+    height: 40px !important;
+}
+
+/* Clear button — outlined neutral */
+.clearButton.sapMBtn {
+    border: 1px solid #d0d5e8 !important;
+    border-radius: 8px !important;
+    color: #6b7694 !important;
+    background: #fff !important;
+    font-size: 0.875rem !important;
+    height: 40px !important;
+    min-width: 90px !important;
+}
+
+.clearButton.sapMBtn:hover {
+    background: #f4f5f9 !important;
+    border-color: #b0b8d4 !important;
+}
+
+/* Extract button — dark indigo */
+.extractButton.sapMBtn {
+    background: #3d3abf !important;
+    border-color: #3d3abf !important;
+    border-radius: 8px !important;
+    color: #fff !important;
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    min-width: 180px !important;
+    height: 40px !important;
+}
+
+.extractButton.sapMBtn:hover {
+    background: #2f2d99 !important;
+}
+
+/* ─── Results Panel ─── */
+.resultsPanel {
+    padding: 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.resultsTitleRow {
+    gap: 8px !important;
+    margin-bottom: 16px !important;
+    padding-bottom: 10px !important;
+    border-bottom: 1px solid #eef0f5 !important;
+    flex-shrink: 0 !important;
+}
+
+.resultsTitleIcon {
+    color: #3d3abf !important;
+    font-size: 1rem !important;
+    margin-right: 5px !important;
+}
+
+.resultsTitle {
+    color: #1a1a2e !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+}
+
+.resultsPlaceholder {
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 1 !important;
+    gap: 10px !important;
+}
+
+.resultsPlaceholderIcon {
+    color: #c5cae0 !important;
+    margin-bottom: 8px !important;
+}
+
+.resultsPlaceholderTitle {
+    color: #8892b0 !important;
+    font-size: 0.95rem !important;
+    font-weight: 500 !important;
+}
+
+.resultsPlaceholderSub {
+    color: #aab0c8 !important;
+    font-size: 0.82rem !important;
+    text-align: center !important;
+}
+
+/* Results ScrollContainer fills remaining space */
+.resultsPanel > .sapMScrollCont {
+    flex: 1 !important;
+    min-height: 0 !important;
+}
+
+.resultContent {
+    padding: 8px !important;
+    font-size: 0.875rem !important;
+    line-height: 1.6 !important;
+    color: #2c3550 !important;
+}
+
+/* ─── Footer ─── */
+.footerBar {
+    background-color: #ffffff !important;
+    border-top: 1px solid #eef0f5 !important;
+}
+
+.footerText {
+    color: #8892b0 !important;
+    font-size: 0.8rem !important;
+}
+
+
+.previewImage {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    aspect-ratio: 1 / 1 !important;
+    object-fit: inherit !important; /* keeps full image visible */
 }

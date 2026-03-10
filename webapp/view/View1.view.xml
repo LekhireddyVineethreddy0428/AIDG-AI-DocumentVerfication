@@ -2,66 +2,64 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:f="sap.f"
     xmlns:u="sap.ui.unified"
-    xmlns:core="sap.ui.core" 
-    displayBlock="true"
+    xmlns:core="sap.ui.core" displayBlock="true"
     xmlns="sap.m">
-    <Page id="page" title="AIRDOC Verification and Extraction" titleLevel="H1" showHeader="true" titleAlignment="Center" backgroundDesign="Solid">
-
-        <content>
-            <VBox id="_IDGenVBox1" width="100%" backgroundDesign="Solid">
-                <FlexBox id="_IDGenFlexBox" alignContent="Center" justifyContent="Center" alignItems="Center" width="100%">
-                    <IconTabHeader id="mainTabHeader" mode="Inline" backgroundDesign="Transparent" select="onTabSelect">
-                        <items>
-                            <IconTabFilter id="PanCard" key="5" text="💳 PAN Verification" 
-                                visible="{= ${aiConfigLocal>/AIPANVERIF/IsActive} === true}" />
-                            <IconTabFilter id="Adhaar" key="4" text="👤 Aadhaar Verification" 
-                                visible="{= ${aiConfigLocal>/AIADHARVER/IsActive} === true}"/>
-                            <IconTabFilter id="BankCheque" key="7" text="💵 Bank Cheque Verification" 
-                                visible="{= ${aiConfigLocal>/AICHEQUEVE/IsActive} === true}"/>
-                            <IconTabFilter id="Invoice" key="1" text="🧾 Invoice Data Extraction" 
-                                visible="{= ${aiConfigLocal>/AIINVOICEV/IsActive} === true}" />
-                            <IconTabFilter id="Contract" key="8" text="📝 Contract Data Extraction" 
-                                visible="{= ${aiConfigLocal>/AICONTRACT/IsActive} === true}" />
-                        </items>
-                    </IconTabHeader>
-                </FlexBox>
-            </VBox>
-
-            <VBox id="MainContentSection" backgroundDesign="Translucent" class="sapUi-Std-PaddingS">
-                <Title id="VerificationTitle" text="💳 PAN Verification" titleStyle="H3" class='sapUiSmallMarginTop sapUi-Std-PaddingS' textAlign="Center" />
-                
-                <HBox id="_IDGenHBox1" width="100%" class="sapUiSmallMargin sapUiLargeMarginTop MainArea">
-                    <VBox id="UploadArea" width="50%" class="sapUiMediumMarginEnd sapUiMediumMarginTop coustmBox showdowBox sapUi-Std-PaddingS">
-                        <Title id="_IDGenTitle1" text="1. Upload Document and Preview" titleStyle="H4" class='TitleName'/>
-                        <u:FileUploader id="fileUploader" name="file" width="75%" fileType="png,jpg,jpeg,pdf" change="onFileChange" class="sapUiLargeMarginStart sapUi-Std-PaddingS" placeholder="Choose file" useMultipart="false"/>
-                        
-                        <VBox id="_IDGenVBox2" height="330px" backgroundDesign="Solid">
-                            <ScrollContainer id="_IDGenScrollContainer1" height="330px" width="100%" vertical="true" horizontal="false">
-                                <Image id="Preview" width="100%" visible="false" class="sapUiSmallMarginTop"/>
-                                <core:HTML id="PdfPreviewHtml" visible="false"/>
-                            </ScrollContainer>
+    <Page id="page" title="AIRDOC Verification and Extraction" titleLevel="H1" showHeader="true" titleAlignment="Center" backgroundDesign="Solid" class="mainPage">
+        <content >
+            <VBox id="MainContentSection" class="mainContent" height="100%" fitContainer="true">
+                <HBox id="_IDGenHBox1" width="100%" height="100%" class="layoutHBox" fitContainer="true">
+                    <!-- LEFT: Upload Area -->
+                    <VBox id="UploadArea" class="panelBox uploadPanel">
+                        <VBox id="previewContainer" class="previewArea">
+                            <VBox id="previewPlaceholder" class="previewPlaceholder" visible="true">
+                                <core:Icon id="_IDGenIcon1" src="sap-icon://document-text" size="3rem" class="placeholderIcon"/>
+                                <Text id="_IDGenText1" text="Image or PDF preview" class="placeholderTitle"/>
+                                <Text id="_IDGenText2" text="Upload a file below to preview it here" class="placeholderSub"/>
+                            </VBox>
+                            <Image id="Preview" width="100%" height="auto"  densityAware="false" visible="false" class="previewImage"/>
+                            <core:HTML id="PdfPreviewHtml" visible="false"/>
                         </VBox>
-
-                        <Button id="VerificationButton" text="Click to Verify PAN" type="Emphasized" class="sapUiSmallMarginTop" press="onVerifyPress" width="100%"/>
+                        <HBox id="actionBar" class="actionBar" justifyContent="SpaceBetween" alignItems="Center">
+                            <u:FileUploader id="fileUploader" name="file" width="auto" fileType="png,jpg,jpeg,pdf" change="onFileChange" placeholder="Browse &amp; Upload" useMultipart="false" buttonOnly="false" buttonText="⬆ Browse &amp; Upload"/>
+                            <HBox id="_IDGenHBox2" class="actionButtons" alignItems="Center">
+                                <Button id="ClearButton" text="Clear" press="onClearPress" icon="sap-icon://sys-cancel"/>
+                                <Button id="VerificationButton" type="Emphasized" text="Verify / Extract" press="onVerifyPress" icon="sap-icon://document"/>
+                            </HBox>
+                        </HBox>
                     </VBox>
 
-                    <VBox id="ResultsArea" width="50%" class="sapUiMediumMarginTop coustmBox showdowBox sapUi-Std-PaddingS">
-                        <Title id="_IDGenTitle2" text="2. Verification Results" titleStyle="H4" class='TitleName sapUi-Std-PaddingS'/>
-                        <VBox id="chatArea" backgroundDesign="Solid" height="330px" class="sapUiMediumMarginTop sapUi-Std-PaddingS">
-                            <ScrollContainer id="_IDGenScrollContainer" height="330px" width="100%" vertical="true" horizontal="false">
-                                <FormattedText id="resultText" htmlText="Results will appear here after a file is uploaded and verified." class="sapUi-Std-PaddingS sapUiTinyMarginTop" />
-                            </ScrollContainer>
+                    <!-- RIGHT: Results Area -->
+                    <VBox id="ResultsArea" class="panelBox resultsPanel">
+                        <HBox id="_IDGenHBox" alignItems="Center" justifyContent="SpaceBetween" class="resultsTitleRow">
+
+                            <HBox id="_IDGenHBox3" alignItems="Center">
+                                <core:Icon id="_IDGenIcon2" src="sap-icon://document-text" class="resultsTitleIcon"/>
+                                <Title id="_IDGenTitle2" text=" Extraction Results" titleStyle="H5" class="resultsTitle"/>
+                            </HBox>
+                            <!-- Export Button -->
+                            <Button id="exportBtn" text="Export JSON" icon="sap-icon://download" press="onExportJson" type="Transparent" visible="false"/>
+                        </HBox>
+
+
+                        <VBox id="resultsPlaceholder" class="resultsPlaceholder" visible="true">
+                            <core:Icon id="_IDGenIcon3" src="sap-icon://terminal" size="3rem" class="resultsPlaceholderIcon"/>
+                            <Text id="_IDGenText3" text="Results will appear here" class="resultsPlaceholderTitle"/>
+                            <Text id="_IDGenText4" text="Upload a document and click Extract" class="resultsPlaceholderSub"/>
                         </VBox>
+
+                        <ScrollContainer id="_IDGenScrollContainer" height="100%" width="100%" vertical="true" horizontal="false">
+                            <core:HTML id="resultText" class="resultContent" visible="false"/>
+                        </ScrollContainer>
                     </VBox>
+
                 </HBox>
             </VBox>
         </content>
 
         <footer>
-            <Bar id="_IDGenBar1" design="Auto">
+            <Bar id="_IDGenBar1" design="Auto" class="footerBar">
                 <contentMiddle>
-                    <Text id="_IDGenText" text="© 2026 Document Verification App"></Text>
-                    <Text id="_IDGenText1" text="Powered By Airdit Software Services"></Text>
+                    <Text id="_IDGenText" text="© 2026 Document Verification App  Powered By Airdit Software Services" class="footerText"/>
                 </contentMiddle>
             </Bar>
         </footer>
