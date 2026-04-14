@@ -14,13 +14,13 @@ builder:
       afterTask: generateCachebusterInfo
       configuration:
         target:
-          destination: s4p_https
+          destination: AIRDIT_HANA_VSH
           url: http://airdithanaprd:44388
-          client: '200'
+          client: '400'
         app:
           name: ZAIDGVIAP
           description: Verification application of digital documents
           package: ZQU-DG-FND
-          transport: S4PK900123
+          transport: VSHK900039
         exclude:
           - /test/

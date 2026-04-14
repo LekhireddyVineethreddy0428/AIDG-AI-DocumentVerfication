@@ -5,19 +5,27 @@
     xmlns:core="sap.ui.core" displayBlock="true"
     xmlns="sap.m">
     <Page id="page" title="AIRDOC Verification and Extraction" titleLevel="H1" showHeader="true" titleAlignment="Center" backgroundDesign="Solid" class="mainPage">
-        <content >
+        <content>
             <VBox id="MainContentSection" class="mainContent" height="100%" fitContainer="true">
                 <HBox id="_IDGenHBox1" width="100%" height="100%" class="layoutHBox" fitContainer="true">
+
                     <!-- LEFT: Upload Area -->
                     <VBox id="UploadArea" class="panelBox uploadPanel">
                         <VBox id="previewContainer" class="previewArea">
-                            <VBox id="previewPlaceholder" class="previewPlaceholder" visible="true">
+                            <VBox id="previewPlaceholder" class="previewPlaceholder"
+                                visible="{view>/previewPlaceholderVisible}">
                                 <core:Icon id="_IDGenIcon1" src="sap-icon://document-text" size="3rem" class="placeholderIcon"/>
                                 <Text id="_IDGenText1" text="Image or PDF preview" class="placeholderTitle"/>
                                 <Text id="_IDGenText2" text="Upload a file below to preview it here" class="placeholderSub"/>
                             </VBox>
-                            <Image id="Preview" width="100%" height="auto"  densityAware="false" visible="false" class="previewImage"/>
-                            <core:HTML id="PdfPreviewHtml" visible="false"/>
+                            <Image id="Preview" width="100%" height="auto" densityAware="false"
+                                visible="{view>/imagePreviewVisible}"
+                                src="{view>/previewSrc}"
+                                class="previewImage"/>
+                            <core:HTML id="PdfPreviewHtml"
+                                visible="{view>/pdfPreviewVisible}"
+                                content="{view>/pdfContent}"
+                                class="previewPdf"/>
                         </VBox>
                         <HBox id="actionBar" class="actionBar" justifyContent="SpaceBetween" alignItems="Center">
                             <u:FileUploader id="fileUploader" name="file" width="auto" fileType="png,jpg,jpeg,pdf" change="onFileChange" placeholder="Browse &amp; Upload" useMultipart="false" buttonOnly="false" buttonText="⬆ Browse &amp; Upload"/>
@@ -31,24 +39,36 @@
                     <!-- RIGHT: Results Area -->
                     <VBox id="ResultsArea" class="panelBox resultsPanel">
                         <HBox id="_IDGenHBox" alignItems="Center" justifyContent="SpaceBetween" class="resultsTitleRow">
-
                             <HBox id="_IDGenHBox3" alignItems="Center">
                                 <core:Icon id="_IDGenIcon2" src="sap-icon://document-text" class="resultsTitleIcon"/>
                                 <Title id="_IDGenTitle2" text=" Extraction Results" titleStyle="H5" class="resultsTitle"/>
                             </HBox>
-                            <!-- Export Button -->
-                            <Button id="exportBtn" text="Export JSON" icon="sap-icon://download" press="onExportJson" type="Transparent" visible="false"/>
+                            <Button id="exportBtn" text="Export JSON" icon="sap-icon://download" press="onExportJson" type="Transparent"
+                                visible="{view>/exportBtnVisible}"/>
                         </HBox>
 
-
-                        <VBox id="resultsPlaceholder" class="resultsPlaceholder" visible="true">
+                        <!-- Results Placeholder -->
+                        <VBox id="resultsPlaceholder" class="resultsPlaceholder"
+                            visible="{view>/resultsPlaceholderVisible}">
                             <core:Icon id="_IDGenIcon3" src="sap-icon://terminal" size="3rem" class="resultsPlaceholderIcon"/>
                             <Text id="_IDGenText3" text="Results will appear here" class="resultsPlaceholderTitle"/>
                             <Text id="_IDGenText4" text="Upload a document and click Extract" class="resultsPlaceholderSub"/>
                         </VBox>
 
-                        <ScrollContainer id="_IDGenScrollContainer" height="100%" width="100%" vertical="true" horizontal="false">
-                            <core:HTML id="resultText" class="resultContent" visible="false"/>
+                        <!-- ✅ ScrollContainer only shown when there are results -->
+                        <ScrollContainer
+                            id="_IDGenScrollContainer"
+                            class="resultsScrollContainer"
+                            height="100%"
+                            width="100%"
+                            vertical="true"
+                            horizontal="false"
+                            visible="{view>/resultTextVisible}">
+                            <core:HTML
+                                id="resultText"
+                                class="resultContent"
+                                visible="{view>/resultTextVisible}"
+                                content="{view>/resultContent}"/>
                         </ScrollContainer>
                     </VBox>
 

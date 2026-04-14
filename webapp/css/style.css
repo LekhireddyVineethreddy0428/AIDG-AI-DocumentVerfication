@@ -7,12 +7,15 @@
     padding: 24px !important;
     height: 100% !important;
     box-sizing: border-box !important;
+    overflow: hidden !important;
 }
 
 .layoutHBox {
     gap: 24px !important;
     align-items: stretch !important;
-    height: calc(100vh - 140px) !important; /* fills viewport minus header+footer */
+    height: calc(100vh - 140px) !important;
+    overflow: hidden !important;
+    min-height: 0 !important;
 }
 
 /* ─── Shared Panel ─── */
@@ -20,18 +23,20 @@
     background-color: #ffffff !important;
     border-radius: 12px !important;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06) !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     flex: 1 !important;
     width: 50% !important;
     height: 100% !important;
     display: flex !important;
     flex-direction: column !important;
     box-sizing: border-box !important;
+    min-height: 0 !important;
 }
 
 /* ─── Upload Panel ─── */
 .uploadPanel {
     padding: 0 !important;
+    overflow: hidden !important;
 }
 
 .previewArea {
@@ -47,7 +52,7 @@
     overflow: hidden !important;
     min-height: 0 !important;
     padding: 2px !important;
-    height:400px !important;
+    height: 400px !important;
 }
 
 .previewPlaceholder {
@@ -86,7 +91,6 @@
     gap: 10px !important;
 }
 
-/* Browse button — outlined style */
 .uploadButton .sapUiUfdFUButton,
 .uploadButton .sapMBtn {
     border: 1px solid #d0d5e8 !important;
@@ -98,7 +102,6 @@
     height: 40px !important;
 }
 
-/* Clear button — outlined neutral */
 .clearButton.sapMBtn {
     border: 1px solid #d0d5e8 !important;
     border-radius: 8px !important;
@@ -114,7 +117,6 @@
     border-color: #b0b8d4 !important;
 }
 
-/* Extract button — dark indigo */
 .extractButton.sapMBtn {
     background: #3d3abf !important;
     border-color: #3d3abf !important;
@@ -135,6 +137,8 @@
     padding: 16px !important;
     display: flex !important;
     flex-direction: column !important;
+    overflow: hidden !important;
+    min-height: 0 !important;
 }
 
 .resultsTitleRow {
@@ -181,17 +185,122 @@
     text-align: center !important;
 }
 
-/* Results ScrollContainer fills remaining space */
-.resultsPanel > .sapMScrollCont {
+/* ─── Results ScrollContainer ─── */
+.resultsScrollContainer {
     flex: 1 !important;
     min-height: 0 !important;
+    width: 100% !important;
+    overflow: hidden !important;
 }
 
+.resultsScrollContainer>.sapMScrollContScroll {
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* SAP internal scroll container selectors */
+.resultsPanel>.sapMScrollCont {
+    flex: 1 !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    width: 100% !important;
+}
+
+.resultsPanel>.sapMScrollCont>.sapMScrollContScroll {
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* ─── Result Content (core:HTML) ─── */
 .resultContent {
-    padding: 8px !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+    padding: 4px 8px 8px 8px !important;
     font-size: 0.875rem !important;
     line-height: 1.6 !important;
     color: #2c3550 !important;
+}
+
+/* Summary box */
+.resultContent .summary-box {
+    background: #f8fafc !important;
+    padding: 14px 16px !important;
+    border-radius: 8px !important;
+    margin-bottom: 16px !important;
+    line-height: 1.6 !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    border-left: 3px solid #3d3abf !important;
+}
+
+.resultContent .summary-box p {
+    margin: 0 0 6px 0 !important;
+}
+
+.resultContent .summary-box p:last-child {
+    margin-bottom: 0 !important;
+}
+
+/* Key Fields heading */
+.resultContent .keyFieldsTitle {
+    color: #1e293b !important;
+    border-bottom: 2px solid #e2e8f0 !important;
+    padding-bottom: 8px !important;
+    margin: 0 0 12px 0 !important;
+    font-size: 0.95rem !important;
+}
+
+/* Key Fields table */
+.resultContent .keyFieldsTable {
+    width: 100% !important;
+    max-width: 100% !important;
+    table-layout: fixed !important;
+    border-collapse: collapse !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    word-wrap: break-word !important;
+}
+
+.resultContent .keyTd {
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    padding: 12px !important;
+    font-weight: 600 !important;
+    width: 38% !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    vertical-align: top !important;
+    color: #374151 !important;
+}
+
+.resultContent .valueTd {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    padding: 12px !important;
+    line-height: 1.6 !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    vertical-align: top !important;
+    color: #2c3550 !important;
+}
+
+/* Alternating row color */
+.resultContent .keyFieldsTable tr:nth-child(even) .keyTd {
+    background: #f1f5f9 !important;
+}
+
+.resultContent .keyFieldsTable tr:nth-child(even) .valueTd {
+    background: #f8fafc !important;
+}
+
+/* Remove marked.js extra spacing inside cells */
+.resultContent td p {
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 /* ─── Footer ─── */
@@ -205,10 +314,10 @@
     font-size: 0.8rem !important;
 }
 
-
+/* ─── Preview Image ─── */
 .previewImage {
     max-width: 100% !important;
     max-height: 100% !important;
     aspect-ratio: 1 / 1 !important;
-    object-fit: inherit !important; /* keeps full image visible */
+    object-fit: inherit !important;
 }
